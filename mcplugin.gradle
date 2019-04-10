@@ -6,10 +6,20 @@ dependencies {
     implementation "com.github.Hazae41:Kotlin4MC:-SNAPSHOT"
 }
 
+// Resources parser
+import org.apache.tools.ant.filters.ReplaceTokens
+processResources.with copySpec {
+    from 'src/main/resources' // Resources folder
+    filter(ReplaceTokens, tokens: [ // Placeholders to replace
+                                    'version':version,
+    ])
+}
+
 // Task for creating the jar file
 task bundle (type: Jar){
     group = "build"
     classifier "bundle"
+    from sourceSets.main.output
     // Clean before
     dependsOn 'clean'
     mustRunAfter 'clean'
@@ -23,13 +33,4 @@ task bundle (type: Jar){
 
 artifacts {
     archives bundle
-}
-
-// Resources parser
-import org.apache.tools.ant.filters.ReplaceTokens
-processResources.with copySpec {
-    from 'src/main/resources' // Resources folder
-    filter(ReplaceTokens, tokens: [ // Placeholders to replace
-                                    'version':version,
-    ])
 }
