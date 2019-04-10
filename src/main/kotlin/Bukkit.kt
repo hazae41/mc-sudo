@@ -20,6 +20,7 @@ class SudoBukkitPlugin: BukkitPlugin(){
 
     override fun onEnable() = catch(::err){
         update(62819)
+        
         init(Data)
         command("sudo"){ args ->
             args.getOrNull(0)

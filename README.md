@@ -4,5 +4,5 @@ Execute commands as op!
 
 ## Download 
 
-- [**Latest stable version**](https://jitpack.io/com/github/Hazae41/Sudo/master-SNAPSHOT/Sudo-master-SNAPSHOT-bundle.jar)
-- [**All versions**](https://github.com/Hazae41/Sudo/releases)
+- [**Latest stable version**](https://jitpack.io/com/github/hazae41/mc-sudo/master-SNAPSHOT/mc-sudo-master-SNAPSHOT-bundle.jar)
+- [**All versions**](https://github.com/hazae41/mc-sudo/releases)
