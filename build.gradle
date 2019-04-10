@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'hazae41.minecraft'
-version '1.0'
+version '1.2'
 
 apply from: 'mcplugin.gradle'
 apply from: 'spigot.gradle'
