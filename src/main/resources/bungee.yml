@@ -1,0 +1,15 @@
+name: Sudo
+version: @version@
+description: Execute commands as op
+main: hazae41.minecraft.sudo.bungee.SudoBungeePlugin
+author: Hazae41
+
+commands:
+  gsudo:
+    usage: /gsudo <command>
+    permission: sudo.sudo
+    description: Execute command as full-permissions
+  gsu:
+    usage: /gsu <target>
+    permission: sudo.su
+    description: Execute commands as another player

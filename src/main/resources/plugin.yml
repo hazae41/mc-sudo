@@ -1,0 +1,20 @@
+name: @name@
+version: @version@
+description: @desc@
+main: fr.rhaz.minecraft.sudo.bukkit.SudoBukkitPlugin
+author: Hazae41
+depend: [Kotlin4MC]
+
+commands:
+  sudo:
+    usage: /sudo <command>
+    permission: sudo.sudo
+    description: Execute command as op + all permissions
+  asop:
+    usage: /asop <command>
+    permission: sudo.asop
+    description: Execute command as op
+  su:
+    usage: /su <target>
+    permission: sudo.su
+    description: Execute commands as another player
