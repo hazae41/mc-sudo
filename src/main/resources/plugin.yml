@@ -1,9 +1,8 @@
-name: @name@
+name: Sudo
 version: @version@
-description: @desc@
-main: fr.rhaz.minecraft.sudo.bukkit.SudoBukkitPlugin
+description: Execute commands as op
+main: hazae41.minecraft.sudo.bukkit.SudoBukkitPlugin
 author: Hazae41
-depend: [Kotlin4MC]
 
 commands:
   sudo:
