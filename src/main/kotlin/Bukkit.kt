@@ -5,6 +5,7 @@ package hazae41.minecraft.sudo.bukkit
 import hazae41.minecraft.kotlin.bukkit.*
 import hazae41.minecraft.kotlin.catch
 import hazae41.minecraft.kotlin.lowerCase
+import hazae41.minecraft.kotlin.not
 import hazae41.minecraft.kotlin.textOf
 import net.md_5.bungee.api.chat.BaseComponent
 import org.bukkit.Bukkit.*
@@ -20,8 +21,8 @@ class SudoBukkitPlugin: BukkitPlugin(){
 
     override fun onEnable() = catch(::err){
         update(62819)
-        
         init(Data)
+
         command("sudo"){ args ->
             args.getOrNull(0)
                 ?: return@command msg("&cUsage: /sudo <command>")
@@ -29,10 +30,9 @@ class SudoBukkitPlugin: BukkitPlugin(){
             val cmd = args.joinToString(" ")
             val opped = (this as? Player)?.asOp(true) ?: asOp(true)
 
-            dispatchCommand(opped, cmd).also {
-                success -> if(!success) msg("&cUnknown command")
-            }
+            dispatchCommand(opped, cmd)
         }
+
         command("asop"){ args ->
             args.getOrNull(0)
                 ?: return@command msg("&cUsage: /asop <command>")
@@ -42,6 +42,7 @@ class SudoBukkitPlugin: BukkitPlugin(){
 
             dispatchCommand(opped, cmd)
         }
+
         command("su"){ args ->
             if(this !is Player)
                 return@command msg("&cYou're not a player")
@@ -53,12 +54,12 @@ class SudoBukkitPlugin: BukkitPlugin(){
             val target = matches.getOrNull(0)
                 ?: return@command msg("&cUnknown player")
 
-            Data[name] = target.name
+            Data.Player(this).target = target.name
             msg("&bNow executing Bukkit commands as ${target.name}")
         }
+
         listen<PlayerCommandPreprocessEvent>(LOW) {
-            val data = Data[it.player.name]
-                    as? String ?: return@listen
+            val data = Data.Player(it.player).target.not("") ?: return@listen
 
             it.isCancelled = true
 
@@ -73,11 +74,14 @@ class SudoBukkitPlugin: BukkitPlugin(){
     }
 }
 
-object Data: ConfigFile("data")
+object Data: PluginConfigFile("data"){
+    class Player(player: BukkitPlayer){
+        var target by string(player.uniqueId.toString())
+    }
+}
 
 fun Player.exit() {
-    Data.config.set(name, null)
-    Data.save()
+    Data.Player(this).target = ""
     msg("&bExited Bukkit su")
 }
 

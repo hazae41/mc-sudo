@@ -5,6 +5,7 @@ package hazae41.minecraft.sudo.bungee
 import hazae41.minecraft.kotlin.bungee.*
 import hazae41.minecraft.kotlin.catch
 import hazae41.minecraft.kotlin.lowerCase
+import hazae41.minecraft.kotlin.not
 import hazae41.minecraft.kotlin.textOf
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.BaseComponent
@@ -27,7 +28,7 @@ class SudoBungeePlugin: BungeePlugin(){
             val opped = (this as? ProxiedPlayer)?.asOp() ?: asOp()
 
             proxy.pluginManager.dispatchCommand(opped, cmd).also {
-                    success -> if(!success) msg("&cUnknown command")
+                success -> if(!success) msg("&cUnknown command")
             }
         }
         command("gsu", "sudo.su"){ args ->
@@ -41,15 +42,15 @@ class SudoBungeePlugin: BungeePlugin(){
             val target = matches.toList().getOrNull(0)
                 ?: return@command msg("&cUnknown player")
 
-            Data[name] = target.name
+            Data.Player(this).target = target.name
             msg("&bNow executing Bungee commands as ${target.name}")
         }
         listen<ChatEvent>(LOW) {
             val player = it.sender as? ProxiedPlayer
                 ?: return@listen
 
-            val data = Data[player.name]
-                    as? String ?: return@listen
+            val data = Data.Player(player).target.not("")
+                ?: return@listen
 
             if(it.message.lowerCase == "/gsu"){
                 it.isCancelled = true
@@ -66,11 +67,14 @@ class SudoBungeePlugin: BungeePlugin(){
     }
 }
 
-object Data: ConfigFile("data")
+object Data: PluginConfigFile("data"){
+    class Player(player: ProxiedPlayer){
+        var target by string(player.uniqueId.toString())
+    }
+}
 
-fun ProxiedPlayer.exit() {
-    Data.config.set(name, null)
-    Data.save()
+fun ProxiedPlayer.exit(){
+    Data.Player(this).target = ""
     msg("&bExited Bungee su")
 }
 
