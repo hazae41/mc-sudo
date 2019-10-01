@@ -2,7 +2,8 @@ name: Sudo
 version: @version@
 description: Execute commands as op
 main: hazae41.minecraft.sudo.bungee.SudoBungeePlugin
-author: Hazae41
+author: hazae41
+depends: [KLibs]
 
 commands:
   gsudo:

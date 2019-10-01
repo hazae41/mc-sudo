@@ -1,28 +1,14 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 repositories {
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation "com.github.hazae41:mc-kotlin:3.1.2"
+    implementation "com.github.hazae41:mc-kutils:3.3.2"
 }
 
-// Resources parser
-import org.apache.tools.ant.filters.ReplaceTokens
 processResources.with copySpec {
-    from 'src/main/resources' // Resources folder
-    filter(ReplaceTokens, tokens: [ // Placeholders to replace
-        'version':version,
-    ])
-}
-
-tasks.shadowJar {
-    classifier = 'bundle'
-    dependsOn tasks.relocateShadowJar
-    dependsOn 'clean'
-    mustRunAfter 'clean'
-    destinationDir = file("$rootDir/jar")
-}
-
-artifacts {
-    archives shadowJar
+    from 'src/main/resources'
+    filter(ReplaceTokens, tokens: ['version':version])
 }

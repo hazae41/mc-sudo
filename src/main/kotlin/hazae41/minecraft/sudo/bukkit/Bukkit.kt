@@ -1,14 +1,13 @@
-@file:JvmName("SudoBukkit")
-
 package hazae41.minecraft.sudo.bukkit
 
-import hazae41.minecraft.kotlin.bukkit.*
-import hazae41.minecraft.kotlin.catch
-import hazae41.minecraft.kotlin.lowerCase
-import hazae41.minecraft.kotlin.not
-import hazae41.minecraft.kotlin.textOf
+import hazae41.minecraft.kutils.bukkit.*
+import hazae41.minecraft.kutils.catch
+import hazae41.minecraft.kutils.not
+import hazae41.minecraft.kutils.textOf
 import net.md_5.bungee.api.chat.BaseComponent
-import org.bukkit.Bukkit.*
+import org.bukkit.Bukkit.dispatchCommand
+import org.bukkit.Bukkit.getPlayer
+import org.bukkit.Bukkit.matchPlayer
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.event.EventPriority.LOW
@@ -63,7 +62,7 @@ class SudoBukkitPlugin: BukkitPlugin(){
 
             it.isCancelled = true
 
-            if(it.message.lowerCase == "/su")
+            if(it.message.toLowerCase() == "/su")
                 return@listen it.player.exit()
 
             val target = getPlayer(data)

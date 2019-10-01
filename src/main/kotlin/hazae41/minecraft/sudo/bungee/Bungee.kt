@@ -1,12 +1,7 @@
-@file:JvmName("SudoBungee")
-
 package hazae41.minecraft.sudo.bungee
 
-import hazae41.minecraft.kotlin.bungee.*
-import hazae41.minecraft.kotlin.catch
-import hazae41.minecraft.kotlin.lowerCase
-import hazae41.minecraft.kotlin.not
-import hazae41.minecraft.kotlin.textOf
+import hazae41.minecraft.kutils.*
+import hazae41.minecraft.kutils.bungee.*
 import net.md_5.bungee.api.CommandSender
 import net.md_5.bungee.api.chat.BaseComponent
 import net.md_5.bungee.api.connection.ProxiedPlayer
@@ -52,7 +47,7 @@ class SudoBungeePlugin: BungeePlugin(){
             val data = Data.Player(player).target.not("")
                 ?: return@listen
 
-            if(it.message.lowerCase == "/gsu"){
+            if(it.message.toLowerCase() == "/gsu"){
                 it.isCancelled = true
                 return@listen player.exit()
             }
@@ -60,7 +55,11 @@ class SudoBungeePlugin: BungeePlugin(){
             val target = proxy.getPlayer(data)
                 ?: return@listen player.msg("&c$data is not online")
 
-            proxy.pluginManager.dispatchCommand(RedirectedPlayer(player, target), it.message.drop(1)).also{
+            proxy.pluginManager.dispatchCommand(
+                RedirectedPlayer(
+                    player,
+                    target
+                ), it.message.drop(1)).also{
                 success -> if(success) it.isCancelled = true
             }
         }
