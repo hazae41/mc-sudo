@@ -3,7 +3,7 @@ version: @version@
 description: Execute commands as op
 main: hazae41.minecraft.sudo.bukkit.SudoBukkitPlugin
 author: hazae41
-depend: [KLibs]
+softdepend: [KLibs]
 
 commands:
   sudo:
