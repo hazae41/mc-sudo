@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'hazae41'
-version '1.2.4'
+version '1.2.5'
 
 apply from: 'mcplugin.gradle'
 apply from: 'spigot.gradle'
@@ -36,7 +36,7 @@ shadowJar {
     dependsOn tasks.relocateShadowJar
     dependsOn 'clean'
     mustRunAfter 'clean'
-    destinationDirectory = file("$rootDir/jar")
+    destinationDir = file("$rootDir/jar")
 }
 
 artifacts {
