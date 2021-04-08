@@ -1,0 +1,19 @@
+name: Sudo
+api-version: 1.16
+description: Execute commands as op or as another player
+author: hazae41
+main: hazae41.sudo.Plugin
+version: 2.0
+commands:
+  sudo:
+    usage: /sudo <...command>
+    permission: sudo.sudo
+    description: Execute a command as op with all permissions
+  asop:
+    usage: /asop <...command>
+    permission: sudo.asop
+    description: Execute a command as op
+  su:
+    usage: /su <player>
+    permission: sudo.su
+    description: Execute commands as player

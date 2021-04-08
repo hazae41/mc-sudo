@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+group 'hazae41'
+version '2.0'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+dependencies {
+    implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    implementation 'org.jetbrains:annotations:20.1.0'
+}
